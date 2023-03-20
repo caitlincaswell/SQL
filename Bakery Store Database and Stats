@@ -1,0 +1,37 @@
+--Create a Bakery Store Database
+
+CREATE TABLE bakery (id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, price INTEGER, sale_price INTEGER, category TEXT);
+
+INSERT INTO bakery VALUES (1, "chocolate chip", 12, 5.00, 4.00, "cookies");
+INSERT INTO bakery VALUES (2, "salted caramel", 8, 6.00, 5.00, "cookies");
+INSERT INTO bakery VALUES (3, "cookies and cream", 22, 5.00, 4.00, "cookies");
+INSERT INTO bakery VALUES (4, "peanut butter", 30, 4.50, 3.75, "cookies");
+INSERT INTO bakery VALUES (5, "sugar", 8, 4.00, 3.00, "cookies");
+INSERT INTO bakery VALUES (6, "funfetti", 11, 4.50, 3.00, "cookies");
+INSERT INTO bakery VALUES (7, "chocolate", 3, 25.00, 23.00, "cakes");
+INSERT INTO bakery VALUES (8, "vanilla", 2, 25.00, 23.00, "cakes");
+INSERT INTO bakery VALUES (9, "strawberry", 4, 25.00, 23.00, "cakes");
+INSERT INTO bakery VALUES (10, "red velvet", 6, 25.00, 23.00, "cakes");
+INSERT INTO bakery VALUES (11, "german chocolate", 4, 27.00, 25.00, "cakes");
+INSERT INTO bakery VALUES (12, "pumpkin", 2, 20.00, 18.00, "pies");
+INSERT INTO bakery VALUES (13, "pecan", 1, 20.00, 18.00, "pies");
+INSERT INTO bakery VALUES (14, "cherry", 3, 22.00, 20.00, "pies");
+INSERT INTO bakery VALUES (15, "apple", 2, 25.00, 23.00, "pies");
+
+--Display the database ordered by price.
+SELECT * FROM bakery 
+ORDER BY price ASC;
+
+--What is the total number of items in the Bakery?
+SELECT SUM(quantity) FROM bakery;
+
+--What is the average number of each individual baked goods?
+SELECT AVG(quantity) FROM bakery;
+
+--Display the database ordered by quantity. 
+SELECT * FROM bakery
+ORDER BY quantity ASC;
+
+
+
+
