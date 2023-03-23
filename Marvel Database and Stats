@@ -61,4 +61,21 @@ SELECT COUNT(*), alignment
 FROM marvels
 GROUP BY alignment;
 
-
+Comparing each marvels height and weight to the average height and weight of each marvel. 
+SELECT name, gender, alignment, weight_kg,
+CASE
+    WHEN weight_kg > weight_kg_avg THEN "HIGHER"
+    WHEN weight_kg < weight_kg_avg THEN "LOWER"
+    ELSE "SAME"
+END AS "compared_to_average_weight",
+height_m,
+CASE 
+    WHEN height_m > height_m_avg THEN "HIGHER"
+    WHEN height_m < height_m_avg THEN "LOWER"
+    ELSE "SAME"
+END AS "compared_to_average_height"
+FROM (
+SELECT name, gender, alignment, weight_kg, (SELECT AVG(weight_kg) FROM marvels) AS weight_kg_avg,
+height_m,
+(SELECT AVG(height_m) FROM marvels) AS height_m_avg
+FROM marvels AS m);
