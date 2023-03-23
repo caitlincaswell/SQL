@@ -1,0 +1,8 @@
+CREATE TABLE Movie_Stars 
+(id INTEGER PRIMARY KEY, name TEXT,starred_in TEXT, hometown TEXT, net_worth INTEGER);
+
+INSERT INTO Movie_Stars VALUES (1, "Leonardo Dicaprio", "Titanic", "Los Angeles, California", 300000000);
+INSERT INTO Movie_Stars VALUES (2, "Reese Witherspoon","New Orleans, Lousiana", "Legally Blonde", 400000000);
+INSERT INTO Movie_Stars VALUES (3, "Sandra Bullock", "Arlington, Texas", "The Blind Side", 250000000);
+INSERT INTO Movie_Stars VALUES (4, "Will Smith", "The Pursuit of Happyness", "West Philidelphia", 350000000);
+INSERT INTO Movie_Stars VALUES (5, "Jim Carrey", "The Grinch", "New Market, Ontario", 180000000);
