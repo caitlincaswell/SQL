@@ -40,18 +40,23 @@ INSERT INTO marvels VALUES(24, "Venon", 78, "Neutral", "Male", 1.90, 118, "EUA",
 INSERT INTO marvels VALUES(25, "Juggernaut", 76, "Neutral", "Male", 2.87, 862, "EUA", 2, 7, 2, 7, 1, 4);
 INSERT INTO marvels VALUES(26, "Professor X", 58, "Good", "Male", 1.83, 86, "EUA", 5, 2, 2, 2, 5, 3);
 
+Who is the most popular Marvel
 SELECT name AS "most popular",MAX(popularity) AS "highest rating" FROM marvels;
 
+How many marvels are male and female?
 SELECT COUNT(*), gender 
 FROM marvels
 GROUP BY gender;
 
+Comparing the average height, weight, and overall skill. 
 SELECT AVG(height_m) AS "avg_height_m", AVG(weight_kg) AS "avg_weight_kg", AVG(intelligence+strength+speed+durability+energy_Projection+fighting_Skills) AS "overall_skills"
 FROM marvels;
 
+Comparing each marvels total overall skills.
 SELECT name, gender, alignment, (intelligence+strength+speed+durability+energy_Projection+fighting_Skills) AS "overall_skill_rating" 
 FROM marvels;
 
+How many marvels are in the categories good, bad, and ugly. 
 SELECT COUNT(*), alignment 
 FROM marvels
 GROUP BY alignment;
