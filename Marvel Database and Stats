@@ -48,3 +48,12 @@ GROUP BY gender;
 
 SELECT AVG(height_m) AS "avg_height_m", AVG(weight_kg) AS "avg_weight_kg", AVG(intelligence+strength+speed+durability+energy_Projection+fighting_Skills) AS "overall_skills"
 FROM marvels;
+
+SELECT name, gender, alignment, (intelligence+strength+speed+durability+energy_Projection+fighting_Skills) AS "overall_skill_rating" 
+FROM marvels;
+
+SELECT COUNT(*), alignment 
+FROM marvels
+GROUP BY alignment;
+
+
