@@ -1,0 +1,88 @@
+CREATE TABLE guitarists (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, age INTEGER);
+CREATE TABLE bands (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);
+CREATE TABLE albums(id INTEGER PRIMARY KEY AUTOINCREMENT, band_id INTEGER, name TEXT, song_count INTEGER);
+CREATE TABLE album_guitarists(id INTEGER PRIMARY KEY AUTOINCREMENT, album_id INTEGER, guitarist_id INTEGER);
+
+INSERT INTO guitarists (name, age) VALUES ("Dave Murray", 59);
+INSERT INTO guitarists (name, age) VALUES ("Dave Mustaine", 59);
+INSERT INTO guitarists (name, age) VALUES ("James Hetfield", 52);
+INSERT INTO guitarists (name, age) VALUES ("Kerry King", 51);
+INSERT INTO guitarists (name, age) VALUES ("Dimebag", 38);
+INSERT INTO guitarists (name, age) VALUES ("Jeff Loomis", 44);
+
+INSERT INTO bands (name) VALUES ("Iron Maiden");
+INSERT INTO bands (name) VALUES ("Metallica");
+INSERT INTO bands (name) VALUES ("Slayer");
+INSERT INTO bands (name) VALUES ("Pantera");
+INSERT INTO bands (name) VALUES ("Megadeth");
+INSERT INTO bands (name) VALUES ("Conquering Dystopia");
+INSERT INTO bands (name) VALUES ("Nevermore");
+INSERT INTO bands (name) VALUES ("Damage Plan");
+
+INSERT INTO albums (band_id, name, song_count) VALUES (1, "The Number of the Beast", 8);
+INSERT INTO albums (band_id, name, song_count) VALUES (1, "Powerslave", 8);
+INSERT INTO albums (band_id, name, song_count) VALUES (1, "Dance of Death", 11);
+
+INSERT INTO albums (band_id, name, song_count) VALUES (2, "Master of Puppets", 8);
+INSERT INTO albums (band_id, name, song_count) VALUES (2, "Ride the Lightning", 8);
+INSERT INTO albums (band_id, name, song_count) VALUES (2, "And Justice For All", 9);
+
+INSERT INTO albums (band_id, name, song_count) VALUES (3, "Reign in Blood", 10);
+INSERT INTO albums (band_id, name, song_count) VALUES (3, "Seasons in the Abyss", 10);
+
+INSERT INTO albums (band_id, name, song_count) VALUES (4, "Cowboys from Hell", 12);
+INSERT INTO albums (band_id, name, song_count) VALUES (4, "The Great Southern Trendkill", 11);
+
+INSERT INTO albums (band_id, name, song_count) VALUES (5, "Rust in Peace", 9);
+INSERT INTO albums (band_id, name, song_count) VALUES (5, "Countdown to Extinction", 11);
+INSERT INTO albums (band_id, name, song_count) VALUES (5, "Youthanasia", 12);
+
+INSERT INTO albums (band_id, name, song_count) VALUES (6, "Conquering Dystopia", 12);
+
+INSERT INTO albums (band_id, name, song_count) VALUES (7, "Dreaming Neon Black", 13);
+INSERT INTO albums (band_id, name, song_count) VALUES (7, "The Obsidian Conspiracy", 10);
+
+INSERT INTO albums (band_id, name, song_count) VALUES (8, "New Found Power", 14);
+
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(1, 1);
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(2, 1);
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(3, 1);
+
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(4, 3);
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(5, 3);
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(6, 3);
+
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(7, 4);
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(8, 4);
+
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(9, 5);
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(10, 5);
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(17, 5);
+
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(11, 2);
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(12, 2);
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(13, 2);
+
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(14, 6);
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(15, 6);
+INSERT INTO album_guitarists (album_id, guitarist_id) VALUES(16, 6);
+
+
+--Joining album names to the band name.
+SELECT bands.name, albums.name 
+FROM bands
+JOIN albums ON bands.id = albums.band_id
+ORDER BY bands.name;
+
+-- Joining guitarists, albums, and bands. 
+SELECT guitarists.name, albums.name, bands.name FROM album_guitarists
+JOIN guitarists ON guitarists.id = album_guitarists.guitarist_id
+JOIN albums ON albums.id = album_guitarists.album_id
+JOIN bands ON bands.id = albums.band_id
+ORDER BY guitarists.name;
+
+--Total number of songs for each guitarist. 
+SELECT guitarists.name, SUM(albums.song_count) AS total_songs FROM album_guitarists
+JOIN guitarists ON guitarists.id = album_guitarists.guitarist_id
+JOIN albums ON albums.id = album_guitarists.album_id
+GROUP BY guitarists.name;
