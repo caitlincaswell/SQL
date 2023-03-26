@@ -1,0 +1,102 @@
+## For this project I downloaded Spotify data from Kaggle. 
+## I then created a table to insert spotify data into. 
+## Finally I performed analytics on the data using SQL. 
+
+
+##Creating the Table 
+
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+song_key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+song_mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness decimal(8,7) NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL );
+
+##Then I inserted the Spotify Data .csv into the table.
+
+#Next, I explored the data using the following SQL. 
+SELECT * 
+FROM BIT_DB.Spotifydata
+
+
+##Then I performed the following querys to answer the questions below. I was able to understand the data more by answering these questions through SQL. 
+
+/*What is the average danceability by artist and track?*/
+SELECT artist_name, track_name, AVG(danceability),AVG(popularity),AVG(energy)
+FROM Spotifydata 
+GROUP BY artist_name,track_name;
+
+/*Who are the top 10 artist in terms of popularity?*/
+SELECT artist_name, track_name, popularity
+FROM Spotifydata 
+ORDER BY popularity DESC
+LIMIT 10;
+
+
+/*What is the average performance skills for each artist in comparison to their popularity?*/
+SELECT artist_name,
+popularity, 
+AVG(danceability+energy+speechiness+liveness)AS performance_skills
+FROM Spotifydata
+GROUP BY artist_name;
+
+
+/*How many tracks are there per artist in this data set?*/
+SELECT artist_name, COUNT(track_name)
+FROM Spotifydata 
+GROUP BY artist_name;
+
+/*Please list the top 5 artists with the most tracks.*/
+SELECT artist_name, COUNT(track_name)
+FROM Spotifydata 
+GROUP BY artist_name
+ORDER BY COUNT(track_name) DESC 
+LIMIT 5;
+
+/*How many tracks are there per artist and list them alphabetically.*/
+SELECT DISTINCT(artist_name), COUNT(track_name)
+FROM Spotifydata 
+GROUP BY artist_name
+ORDER BY artist_name ASC ;
+
+/*Which artist is the least popular?*/
+SELECT artist_name, popularity
+FROM Spotifydata 
+ORDER BY popularity ASC
+LIMIT 1;
+
+
+/*Which tracks are above, below, or the same when comparted to the average popularity?*/
+SELECT artist_name, track_name, popularity,
+CASE 
+    WHEN popularity >85 THEN "above average"
+    WHEN popularity =85 THEN "same"
+    WHEN popularity < 85 THEN "below average"
+    END AS "comparison_to_avg_pop"
+FROM Spotifydata 
+GROUP BY track_name
+ORDER BY popularity DESC;
+
+/*Following the previous query; How many total tracks are above, below, and the same average compared to the total average.*/
+SELECT COUNT(*),
+CASE 
+    WHEN popularity >85 THEN "above average"
+    WHEN popularity =85 THEN "same"
+    WHEN popularity < 85 THEN "below average"
+    END AS "comparison_to_avg_pop"
+FROM Spotifydata 
+GROUP BY comparison_to_avg_pop
+ORDER BY popularity DESC;
